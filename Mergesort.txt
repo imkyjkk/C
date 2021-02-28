@@ -1,0 +1,87 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+//분할이 일어나는 함수
+void MergeSort(int arr[], int left, int right);
+//정렬이 일어나는 함수
+void MergeTwoArea(int arr[], int left, int mid, int right);
+
+
+int main() {
+   int arr[8] = { 5, 0, 7, 8, 6, 2, 3, 1 };
+
+   MergeSort(arr, 0, 7);
+
+   for (int i = 0; i < 8; i++) {
+      printf("%3d", arr[i]);
+   }
+
+   return 0;
+}
+
+void MergeSort(int arr[], int left, int right) {
+   int mid = 0;
+   if (left < right) {
+      mid = (right + left) / 2;
+
+      MergeSort(arr, left, mid);
+      MergeSort(arr, mid + 1, right);
+      MergeTwoArea(arr, left, mid, right);
+   }
+   
+
+
+
+}
+
+
+void MergeTwoArea(int arr[], int left, int mid, int right) {
+   // 1. 배열에서 어느부분이 왼쪽이고 어느 부분이 오른쪽 부분인지 판단한다.
+   // 2. 동적할당을 사용해서 해당 부분을 병합한다.
+   // 3. 병합이 완료되면 원래 배열에다가 삽입한다.
+   // 4. 동적 할당 해제
+
+   int fIdx = left; //왼쪽편 스타트
+   int rIdx = mid + 1; //오른쪽편 스타트
+   int sIdx = left; // 정렬배열 스타트
+
+   int* sortArea = (int*)malloc(sizeof(int) * (right + 1));
+
+   while (fIdx<=mid && rIdx<=right) {
+      // fIdx와 rIdx의 비교가 일어나면서
+      // 둘 중 작은 값이 sortArea 배열에 들어간다.
+      // 그리고 그 부분에 인덱스를 1씩 증가시킨다.
+      // 또한 sIdx 도 증가시킨다.
+
+      if (arr[fIdx] < arr[rIdx]) {
+         sortArea[sIdx] = arr[fIdx++];
+      }
+      else {
+         sortArea[sIdx] = arr[rIdx++];
+      }
+      sIdx++;
+   }
+
+
+
+   //남은 배열을 스르륵 이동시키는 부분
+   if (fIdx > mid) {
+      for (int i = rIdx; i <= right; i++, sIdx++) {
+         sortArea[sIdx] = arr[i];
+      }
+   }
+   else {
+      for (int i = fIdx; i <= mid; i++, sIdx++) {
+         sortArea[sIdx] = arr[i];
+      }
+   }
+
+
+   for (int i = left; i <= right; i++) {
+      arr[i] = sortArea[i];
+   }
+
+   free(sortArea);
+
+
+}
