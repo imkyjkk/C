@@ -2,7 +2,7 @@
 #include<stdlib.h>//srand,rand함수가 정의
 #include<time.h>//time함수
 
-
+ 
 
 
 void swap_sort_array(int* arr, int size) {
