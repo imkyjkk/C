@@ -203,7 +203,7 @@ void eat(ac* ptr, int count_$) {
             hit++; 
             
             //gotoxy(24, 2);printf("$ = %d\n", hit);
-        }
+        } 
 
     }
 
