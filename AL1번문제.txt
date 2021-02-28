@@ -1,0 +1,118 @@
+#include<stdio.h>
+#include<stdlib.h>//srand,rand함수가 정의
+#include<time.h>//time함수
+
+
+
+
+void swap_sort_array(int* arr, int size) {
+
+
+	int i, j, min, temp;
+
+
+
+	printf("정렬할 배열 : [ ");
+	
+	for (i = 0; i < size; i++) {
+	
+		printf("%d ", arr[i]);
+	
+	}
+	printf("]\n");
+	printf("\n");
+
+
+
+	for (i = 0; i < size - 1; i++) {
+
+		min = i;// 앞의 index를 min 설정
+
+		for (j = i + 1; j < size; j++) {
+
+			if (arr[min] > arr[j]) {//i+1부터 끝까지 arr[i]보다 제일 작은 값 찾기.
+
+				min = j;//그 요소의 인덱스를 min에 저장
+
+			}
+		}
+
+		
+		temp = arr[i]; //swap
+		
+		arr[i] = arr[min];
+		
+		arr[min] = temp;
+
+
+
+
+		for (j = 0; j < size; j++) { //과정 출력
+			
+			printf("%3d", arr[j]);
+		
+		}
+		
+		printf("\n");
+	}
+
+
+
+}
+
+
+
+void main() {
+
+	srand(time(NULL));
+	//srand()
+	// - rand함수의 seed 값을 설정하는 함수...
+	// - srand함수의 괄호 안에는 보통 time함수의 반환값을 넣어준다...
+
+	//time()
+	// - 1970년 1월 1일 0시 0분 0초 부터 지금까지의 시간을 초 단위로 반환하는 함수.
+
+	int index = 0;
+	int num1 = rand();
+	int num2 = rand();
+	//-어떠한 기준(seed)에 의해 0 ~32767 까지의 임의의 정수를 구하는 함수...
+	//
+
+	int arr[15] = {0};
+
+	printf("난수 1 : %d\n", num1);
+	printf("난수 2 : %d\n", num2);
+	//배열에 끝숫자부터 넣기
+	//num1 / 10 = 0 이면(첫자리 까지 다 한 경우) 탈출
+
+	while (num1 != 0) {
+		arr[index] = num1 % 10;
+		index++;
+		num1 = num1 / 10;
+	}
+
+
+	//두번째 ran_num에 대해서 반복
+	//
+
+	while (num2 != 0) {
+		arr[index] = num2 % 10;
+		index++;
+		num2 = num2 / 10;
+	}
+	
+
+	//printf("요소의 갯수 : %d\n", index);
+
+
+	swap_sort_array(arr, index);
+
+
+
+}
+	
+
+
+
+
+
